@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    <title>{{ agreement.seo_title }}</title>
+    <meta name="description" content="{{ agreement.desc }}">
+    <meta name="keywords" content="{{ agreement.keywords }}">
+{% endblock title %}
+
+{% block content %}
+<div class="container pb-4 pb-lg-5">
+    <div class="row justify-content-left">
+        <div class="col-xl-9 col-lg-10">
+            <article class="bg-white p-4 p-md-5 rounded-lg shadow-sm">
+                <h1 class="mt-0">{{ agreement.title }}</h1>
+
+                {{ agreement.text|safe }}
+            </article>
+
+        </div>
+    </div>
+</div>
+{% endblock content %}

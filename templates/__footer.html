@@ -1,0 +1,53 @@
+{% load static %}
+
+<footer class="footer bg-light py-4 py-lg-5">
+    <div class="container">
+        <div class="row d-flex align-items-center">
+            <div class="col-lg-2">
+                <div class="position-relative d-lg-inline-block d-none text-center logo">
+                    <img src="{% static 'images/logo.png' %}" class="ml-2 mb-2">
+                    <a href="{% url 'index' %}" class="stretched-link text-lowercase d-block font-3 font-weight-bolder">полосатый<br>слон</a>
+                </div>
+            </div>
+
+            <div class="col-xl-7 col-lg-6 col-md-6">
+                <ul class="list-unstyled">
+                    <li class="smaller d-flex justify-content-start align-items-start">
+                        <i class="fas fa-phone fa-xs fcm mr-2"></i>
+                        <p class="m-0 font-2 text-muted">{{ phone }}</p>
+                    </li>
+
+                    <li class="smaller d-flex justify-content-start align-items-start">
+                        <i class="fas fa-map-marker-alt fa-xs fcm mr-2"></i>
+                        <p class="m-0 font-2 text-muted">{{ address|striptags }}</p>
+                    </li>
+
+                    <li class="smaller d-flex justify-content-start align-items-start">
+                        <i class="fas fa-envelope fa-xs fcm mr-2"></i>
+                        <p class="m-0 font-2 text-muted"><a href="mailto:{{ email }}">{{ email }}</a></p>
+                    </li>
+                    <li>
+                        {% for social in socials %}
+                            <a href="{{ social.link }}" target="_blank" class="text-gray
+                                                                               {% if social.name == 'vk' %} vk {% endif %}
+                                                                               {% if social.name == 'instagram' %} inst {% endif %} 
+                                                                               {% if social.name == 'odnoklassniki' %} odn {% endif %}">
+                                                                               <i class="fab fa-{{ social.name }}"></i></a>
+                        {% endfor %}
+                    </li>
+                </ul>
+            </div>
+
+            <div class="col-xl-3 col-lg-4 col-md-6">
+                <a class="devlogo mb-1 mt-4 mt-md-0 ml-md-auto" href="http://wlms.info" target="_blank">
+                    <img src="{% static 'images/devlogo.png' %}" alt="...">
+                    <div class="devlogo-text">
+                        <span>Webline Masters</span>
+                        <span>создание и продвижение сайтов</span>
+                    </div>
+                </a>
+                <p class="m-0 text-muted small text-md-right">Детский клуб «Полосатый слон» © 2019</p>
+            </div>
+        </div>
+    </div>
+</footer>

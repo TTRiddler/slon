@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container pb-4 pb-lg-5">
+    <div class="row justify-content-left">
+        <div class="col-xl-9 col-lg-10">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="{% url 'index' %}">Главная</a></li>
+                <li class="breadcrumb-item"><a href="{% url 'content_startpoint' %}">О нас</a></li>
+                <li class="breadcrumb-item active">{{ flatpage.title }}</li>
+            </ol>
+            <article class="bg-white p-4 p-md-5 rounded-lg shadow-sm">
+                <h1 class="mt-0">{{ flatpage.title }}</h1>
+                {{ flatpage.content|safe }}
+            </article>
+
+        </div>
+    </div>
+</div>
+{% endblock content %}

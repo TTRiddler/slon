@@ -1,0 +1,59 @@
+{% extends 'base.html' %}
+{% load imagefit %}
+
+{% block content %}
+<div class="container pb-4 pb-lg-5">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="{% url 'index' %}">Главная</a></li>
+        <li class="breadcrumb-item"><a href="{% url 'content_startpoint' %}">О нас</a></li>
+        <li class="breadcrumb-item active">Новости</li>
+    </ol>
+    <h1 class="mt-0 mb-lg-5 mb-4">Новости клуба</h1>
+
+    <div class="row">
+        {% for item in news %}
+            <div class="col-lg-6">
+                <div class="card mb-4 newsfeed-item transition">
+                    <div class="row no-gutters">
+                        <div class="col-lg-4 col-md-5 card-row-img pl-2 pt-2" style="background-image: url('{{ item.image.url|resize:'news' }}')">
+                            <span class="small text-white bg-success px-2 py-1 rounded">{{ item.date|date:"j/n/Y" }}</span>
+                        </div>
+                        <div class="col-lg-8 col-md-7">
+                            <div class="card-body p-4">
+                                <a href="{{ item.get_absolute_url }}" class="card-title mt-0 mb-2 h4 d-block stretched-link">{{ item.title }}</a>
+                                <p class="card-text text-muted smaller m-0">{{ item.short_desc }}</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+
+    <div class="d-flex justify-content-center pt-4">
+        <ul class="pagination">
+            <li class="page-item">
+                <a class="page-link" href="#" tabindex="-1"><i class="fas fa-angle-left"></i></a>
+            </li>
+            <li class="page-item active">
+                <a class="page-link" href="#">1</a>
+            </li>
+            <li class="page-item">
+                <a class="page-link" href="#">2</a>
+            </li>
+            <li class="page-item">
+                <a class="page-link" href="#">3</a>
+            </li>
+            <li class="page-item disabled">
+                <a class="page-link" href="#">...</a>
+            </li>
+            <li class="page-item">
+                <a class="page-link" href="#">10</a>
+            </li>
+            <li class="page-item">
+                <a class="page-link" href="#"><i class="fas fa-angle-right"></i></a>
+            </li>
+        </ul>
+    </div>
+</div>
+{% endblock content %}

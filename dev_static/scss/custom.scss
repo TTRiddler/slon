@@ -1,0 +1,248 @@
+//Zoom Image
+.zoom-image {
+    border-radius: $card-border-radius;
+}
+
+.zoom-image:after {
+    background-color: rgba($primary, .5);
+}
+
+//Scroll To Top
+.scroll-to-top {
+    background-color: $warning;
+}
+
+.scroll-to-top {
+    &:hover {
+        background-color: rgba($primary, 1);
+    }
+}
+
+.smaller {
+    font-size: .9rem;
+}
+
+.font-2 {
+    font-family: 'Montserrat';
+}
+
+.font-3 {
+    font-family: 'Blogger';
+}
+
+.sticky {
+    -webkit-box-shadow: 0 1px 15px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 1px 15px rgba(0, 0, 0, 0.1);
+    padding-top: .25rem !important;
+    padding-bottom: .25rem !important;
+}
+
+.border-gray {
+    border-color: #eaeaea !important;
+}
+
+.text-gray {
+    color: #999;
+}
+
+.letter-spacing {
+    letter-spacing: 1px;
+}
+
+.logo a {
+    &:hover {
+        color: $info;
+    }
+}
+
+@media (max-width: 991.98px) {
+    .offcanvas-collapse {
+        position: fixed;
+        z-index: 999;
+        top: 53px;
+        /* Height of navbar */
+        bottom: 0;
+        left: 100%;
+        width: 100%;
+        padding-right: 1rem;
+        padding-left: 1rem;
+        overflow-y: auto;
+        visibility: hidden;
+        background-color: $primary;
+        -webkit-transition-timing-function: ease-in-out;
+        transition-timing-function: ease-in-out;
+        -webkit-transition-duration: .3s;
+        transition-duration: .3s;
+        -webkit-transition-property: left, visibility;
+        transition-property: left, visibility;
+    }
+
+    .offcanvas-collapse.open {
+        left: 0;
+        visibility: visible;
+    }
+
+    .offcanvas-collapse .nav-link {
+        word-wrap: break-word;
+    }
+
+    .offcanvas-collapse .nav-item.active > a {
+        color: $warning !important;
+    }
+}
+
+.accordion {
+    .accordion {
+        background-color: darken($primary, 5%);
+    }
+}
+
+.collapser {
+    > .nav-link {
+        color: $warning !important;
+
+        i {
+            -webkit-transition: -webkit-transform .2s ease-in-out;
+            transition: -webkit-transform .2s ease-in-out;
+            transition: transform .2s ease-in-out;
+            transition: transform .2s ease-in-out, -webkit-transform .2s ease-in-out;
+            -webkit-transform: rotate(-180deg) translateY(9px);
+            transform: rotate(-180deg) translateY(9px);
+        }
+    }
+
+    .nav-link.collapsed {
+        color: $white !important;
+
+        &:hover {
+            color: $warning !important;
+        }
+
+        i {
+            -webkit-transform: rotate(0);
+            transform: rotate(0);
+        }
+    }
+}
+
+.fcm {
+    width: 23px;
+    height: 23px;
+    text-align: center;
+    background-color: $warning;
+    color: $white;
+    line-height: 23px;
+    border-radius: 4px;
+}
+
+.footer, address {
+    .list-unstyled {
+        &:last-child {
+            margin-bottom: 0 !important;
+        }
+
+        li {
+            margin-bottom: .5rem;
+        }
+    }
+
+    .text-gray {
+        margin-right: .7rem;
+
+        &:hover {
+            background-color: transparent;
+        }
+    }
+
+    .vk:hover {
+        color: #4680C2 !important;
+    }
+
+    .inst:hover {
+        color: #C13584 !important;
+    }
+
+    .odn:hover {
+        color: #F97400 !important;
+    }
+}
+
+.text-shadow {
+    text-shadow: $box-shadow;
+}
+
+.text-shadow-sm {
+    text-shadow: $box-shadow-sm;
+}
+
+.overlay {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.2);
+    z-index: 1;
+}
+
+.transition {
+    -webkit-transition: all .1s ease-in-out;
+    transition: all .1s ease-in-out;
+}
+
+.shuffle-item {
+    .card {
+        &:hover {
+            -webkit-box-shadow: $box-shadow;
+            box-shadow: $box-shadow;
+            -webkit-transform: translateY(-5px);
+            transform: translateY(-5px);
+        }
+
+        .h5 {
+            line-height: 1.45rem;
+        }
+    }
+}
+
+.newsfeed-item {
+    &:hover {
+        -webkit-box-shadow: $box-shadow;
+        box-shadow: $box-shadow;
+        -webkit-transform: translateY(-5px);
+        transform: translateY(-5px);
+    }
+}
+
+.gallery-item {
+    &:hover img {
+        opacity: .85;
+    }
+
+    .h5 {
+        line-height: 1.4rem;
+    }
+}
+
+.form-successed {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+}
+
+.cc {
+    height: 360px;
+    border-width: 2px;
+    &:hover a {
+        color: white;
+    }
+}
+
+@include media-breakpoint-down(md) {
+    .cc {
+        height: auto;
+    }
+}

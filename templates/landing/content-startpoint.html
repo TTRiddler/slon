@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <div class="container pb-4 pb-lg-5">
+        <h1 class="mt-0 mb-lg-4 mb-3">О нас</h1>
+        <script>console.log('{{ get_flatpages }}')</script>
+        {% for page in flatpages %}
+            <a class="d-block font-2 mb-2" href="{{ page.url }}">{{ page.title }}</a>
+        {% endfor %}
+        <a class="d-block font-2 mb-2" href="schedule.html">расписание</a>
+        <a class="d-block font-2 mb-2" href="staff.html">специалисты</a>
+        <a class="d-block font-2 mb-2" href="{% url 'news' %}">новости</a>
+    </div>
+{% endblock content %}

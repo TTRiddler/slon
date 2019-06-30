@@ -1,0 +1,91 @@
+<div class="modal fade" id="SignModal" tabindex="-1" role="dialog">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content overflow-hidden shadow p-md-4 p-3">
+            <div class="modal-header">
+                <h3 class="modal-title m-0">Запишитесь на пробное занятие со cкидкой <span class="text-success">10%</span></h3>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form class="needs-validation" novalidate id="BooknowForm2" method="POST" action="{% url 'booknow' %}">
+                    {% csrf_token %}
+                    <div class="form-group">
+                        <input type="text" class="form-control" placeholder="Ваше имя" id="ParentName2" required>
+                        <div class="invalid-feedback">
+                            Это поле должно быть заполнено
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <input type="text" class="form-control" placeholder="Контактный телефон" id="SignPhone2" required>
+                        <div class="invalid-feedback">
+                            Это поле должно быть заполнено
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <input type="text" class="form-control" placeholder="Имя ребёнка" id="ChildName2" required>
+                        <div class="invalid-feedback">
+                            Это поле должно быть заполнено
+                        </div>
+                    </div>
+                    <div class="row align-items-center">
+                        <div class="col-sm-5">
+                            <div class="form-group">
+                                <input type="text" class="form-control" placeholder="Полных лет" id="SignAge2" required>
+                                <div class="invalid-feedback">
+                                    Это поле должно быть заполнено
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-7">
+                            <div class="form-group">
+                                <div class="form-row ml-1 ml-sm-0">
+                                    <div class="custom-control custom-radio mr-3">
+                                        <input type="radio" id="customRadio3" name="customRadio2" value="boy" class="custom-control-input" checked>
+                                        <label class="custom-control-label" for="customRadio3">Мальчик</label>
+                                    </div>
+                                    <div class="custom-control custom-radio">
+                                        <input type="radio" id="customRadio4" name="customRadio2" value="girl" class="custom-control-input">
+                                        <label class="custom-control-label" for="customRadio4">Девочка</label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <textarea type="text" class="form-control" placeholder="Ваши ожидания от занятий" id="Expectation2" rows="5" required></textarea>
+                        <div class="invalid-feedback">
+                            Это поле должно быть заполнено
+                        </div>
+                    </div>
+
+                    {% include '__recaptcha.html' %}
+
+                    <button class="btn btn-primary mx-auto d-block font-2 px-5 py-2 mb-5" type="submit"><i class="fas fa-paper-plane mr-2 fa-sm"></i>отправить</button>
+                </form>
+
+                
+                <div class="alert alert-danger alert1 small mt-4 d-none" role="alert">
+                    <strong>Ошибка!</strong> Пожалуйста, обновите страницу и повторите попытку
+                </div>
+                <div class="alert alert-danger alert2 small mt-4 d-none" role="alert">
+                    <strong>Ошибка!</strong> Неправильная reCAPTCHA. Попробуйте снова
+                </div>
+               
+
+                <p class="text-muted small m-0">Нажимая кнопку "<i class="fas fa-paper-plane mr-1 fa-xs"></i>отправить", вы даёте согласие на <a href="{% url 'agreement' %}" target="_blank">обработку персональных данных</a></p>
+
+                
+                <div class="form-successed bg-white p-5 d-none align-items-center rounded-lg">
+                    <div class="text-center">
+                        <i class="far fa-check-circle fa-5x text-success"></i>
+                        <h3 class="font-weight-normal mt-3">Спасибо!</h3>
+                        <p class="m-0 text-muted">В ближайшее время мы свяжемся с Вами по указанному номеру телефона</p>
+                    </div>
+                </div>
+               
+
+            </div>
+        </div>
+    </div>
+</div>

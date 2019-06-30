@@ -1,0 +1,189 @@
+{% load static %}
+{% load flatpages %}
+{% get_flatpages as flatpages %}
+
+<div class="bg-light border-bottom border-gray d-none d-lg-block top-bar">
+    <div class="container d-flex justify-content-between align-items-center">
+        <span class="small mr-auto text-gray text-uppercase font-2 letter-spacing">
+            Мы открыты каждый день с 8:00 до 21:00
+        </span>
+
+        {% for social in socials %}
+            <a href="{{ social.link }}" target="_blank" class="text-gray py-2
+                                                                {% if social.name == 'vk' %} vk {% endif %}
+                                                                {% if social.name == 'instagram' %} inst {% endif %} 
+                                                                {% if social.name == 'odnoklassniki' %} odn {% endif %}">
+                                                                <i class="fab fa-{{ social.name }}"></i></a>
+        {% endfor %}
+    </div>
+</div>
+
+<div class="bg-light py-4 d-none d-lg-block top-bar-2">
+    <div class="container d-flex justify-content-between align-items-center">
+        <div class="position-relative text-center logo mr-auto">
+            <img src="{% static 'images/logo.png' %}" class="ml-2 mb-2">
+            <a href="{% url 'index' %}" class="stretched-link text-lowercase d-block font-3 font-weight-bolder">полосатый<br>слон</a>
+        </div>
+
+        <div class="top-contact d-flex justify-content-between align-items-center mr-5">
+            <span class="bg-warning text-center rounded-lg mr-3"><i class="fas fa-phone text-white"></i></span>
+            <div>
+                <p class="text-muted font-2 smaller m-0">{{ phone }}</p>
+                <p class="font-2 smaller font-weight-bold m-0"><a href="#" data-toggle="modal" data-target="#CallBackModal">заказать звонок</a></p>
+            </div>
+        </div>
+
+        <div class="top-contact d-flex justify-content-between align-items-center">
+            <span class="bg-warning text-center rounded-lg mr-3"><i class="fas fa-map-marker-alt text-white"></i></span>
+            <div>
+                <p class="text-muted font-2 smaller m-0 w-10">{{ address|safe }}</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<nav class="navbar navbar-expand-lg navbar-dark bg-primary sticky-top py-lg-4 mb-lg-5 mb-4 py-1">
+    <div class="container px-3">
+
+        <a class="navbar-brand font-3 font-weight-bolder d-lg-none" href="{% url 'index' %}">
+            полосатый слон
+        </a>
+
+        <button class="navbar-toggler" type="button" data-toggle="offcanvas">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item">
+                    <a class="nav-link text-lowercase font-2" href="{% url 'index' %}">главная</a>
+                </li>
+
+                <li class="nav-item dropdown">
+                    <a class="nav-link text-lowercase dropdown-toggle font-2" href="{% url 'content_startpoint' %}">
+                        о нас<i class="fas fa-angle-down fa-sm ml-2"></i>
+                    </a>
+                    <div class="dropdown-menu border-0 shadow">
+                        {% for page in flatpages %}
+                            <a class="dropdown-item text-lowercase font-2 smaller" href="{{ page.url }}">{{ page.title }}</a>
+                        {% endfor %}
+                        <a class="dropdown-item text-lowercase font-2 smaller" href="schedule.html">расписание</a>
+                        <a class="dropdown-item text-lowercase font-2 smaller" href="staff.html">специалисты</a>
+                        <a class="dropdown-item text-lowercase font-2 smaller" href="{% url 'news' %}">новости</a>
+                    </div>
+                </li>
+
+                <li class="nav-item dropdown">
+                    <a class="nav-link text-lowercase dropdown-toggle font-2" href="catalogue-startpoint.html">
+                        услуги<i class="fas fa-angle-down fa-sm ml-2"></i>
+                    </a>
+                    <div class="dropdown-menu border-0 shadow">
+                        <a class="dropdown-item text-lowercase font-2 smaller" href="catalogue.html">0-3 года</a>
+                        <a class="dropdown-item text-lowercase font-2 smaller" href="catalogue.html">3-5 лет</a>
+                        <a class="dropdown-item text-lowercase font-2 smaller" href="catalogue.html">5-7 лет</a>
+                        <a class="dropdown-item text-lowercase font-2 smaller" href="catalogue.html">7-10 лет</a>
+                    </div>
+                </li>
+
+                <li class="nav-item dropdown">
+                    <a class="nav-link text-lowercase dropdown-toggle font-2" href="catalogue-startpoint.html">
+                        кружки<i class="fas fa-angle-down fa-sm ml-2"></i>
+                    </a>
+                    <div class="dropdown-menu border-0 shadow">
+                        <a class="dropdown-item text-lowercase font-2 smaller" href="catalogue.html">0-3 года</a>
+                        <a class="dropdown-item text-lowercase font-2 smaller" href="catalogue.html">3-5 лет</a>
+                        <a class="dropdown-item text-lowercase font-2 smaller" href="catalogue.html">5-7 лет</a>
+                        <a class="dropdown-item text-lowercase font-2 smaller" href="catalogue.html">7-10 лет</a>
+                    </div>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link text-lowercase font-2" href="{% url 'gallery' %}">галерея</a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link text-lowercase font-2" href="{% url 'contacts' %}">контакты</a>
+                </li>
+            </ul>
+
+            <span class="navbar-text">
+                <a href="https://wa.me/{{ messenger.number }}?text=Текст%20стандартного%20сообщения." target="_blank" class="btn btn-secondary btn-sm text-white font-2 small"><i class="fab fa-whatsapp align-middle mr-2" style="color: #fff; font-size: 1.1rem;"></i><span class="d-none d-xl-inline">написать в </span>WhatsApp</a>
+            </span>
+        </div>
+
+        <div class="d-lg-none offcanvas-collapse">
+            <div class="container px-0 px-sm-3">
+                <ul class="navbar-nav mr-auto accordion" id="OffcanvasMenu">
+                    <li class="nav-item collapser">
+                        <a class="nav-link text-lowercase font-2 d-flex justify-content-between collapsed" href="#" data-toggle="collapse" data-target="#c1" aria-expanded="true" aria-controls="c1">о нас<i class="fas fa-angle-down fa-sm ml-2"></i></a>
+
+                        <ul class="navbar-nav mr-auto accordion collapse" id="c1" data-parent="#OffcanvasMenu">
+                            <li class="nav-item">
+                                <a class="nav-link text-lowercase font-2" href="content.html">о клубе</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-lowercase font-2" href="schedule.html">расписание</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-lowercase font-2" href="staff.html">специалисты</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-lowercase font-2" href="{% url 'news' %}">новости</a>
+                            </li>
+                        </ul>
+                    </li>
+
+                    <li class="nav-item collapser">
+                        <a class="nav-link text-lowercase font-2 d-flex justify-content-between collapsed" href="#" data-toggle="collapse" data-target="#c2" aria-expanded="true" aria-controls="c1">услуги<i class="fas fa-angle-down fa-sm ml-2"></i></a>
+
+                        <ul class="navbar-nav mr-auto accordion collapse" id="c2" data-parent="#OffcanvasMenu">
+                            <li class="nav-item">
+                                <a class="nav-link text-lowercase font-2" href="catalogue.html">0-3 года</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-lowercase font-2" href="catalogue.html">3-5 лет</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-lowercase font-2" href="catalogue.html">5-7 лет</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-lowercase font-2" href="catalogue.html">7-10 лет</a>
+                            </li>
+                        </ul>
+                    </li>
+
+                    <li class="nav-item collapser">
+                        <a class="nav-link text-lowercase font-2 d-flex justify-content-between collapsed" href="#" data-toggle="collapse" data-target="#c3" aria-expanded="true" aria-controls="c1">кружки<i class="fas fa-angle-down fa-sm ml-2"></i></a>
+
+                        <ul class="navbar-nav mr-auto accordion collapse" id="c3" data-parent="#OffcanvasMenu">
+                            <li class="nav-item">
+                                <a class="nav-link text-lowercase font-2" href="catalogue.html">0-3 года</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-lowercase font-2" href="catalogue.html">3-5 лет</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-lowercase font-2" href="catalogue.html">5-7 лет</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-lowercase font-2" href="catalogue.html">7-10 лет</a>
+                            </li>
+                        </ul>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link text-lowercase font-2" href="{% url 'gallery' %}">галерея</a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link text-lowercase font-2" href="{% url 'contacts' %}">контакты</a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a href="https://wa.me/{{ messenger.number }}?text=Текст%20стандартного%20сообщения." target="_blank" class="btn btn-secondary btn-sm text-white font-2 small d-block d-md-inline-block mt-3 py-2"><i class="fab fa-whatsapp align-middle mr-2" style="color: #fff; font-size: 1.1rem;"></i>написать в WhatsApp</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</nav>
