@@ -1,10 +1,10 @@
 from django.db import models
 from django.shortcuts import reverse
-from slugify import slugify
 from datetime import date
+from landing.models import SEOOptimizable
 
 
-class Album(models.Model):
+class Album(SEOOptimizable):
     title = models.CharField(max_length=250, unique=True, verbose_name='Название')
 
     def get_picture_url(self, filename):
@@ -15,19 +15,11 @@ class Album(models.Model):
     image = models.ImageField(upload_to=get_picture_url, verbose_name='Изображение')
     text = models.TextField(verbose_name='Текст')
     date = models.DateField(default=date.today, verbose_name='Дата создания')
-
-    slug = models.SlugField(max_length=250, verbose_name='Slug', unique=True, help_text='Заполнится при сохранении')
-    seo_title = models.CharField(max_length=250, verbose_name='Title')
-    desc = models.CharField(max_length=250, verbose_name='Description')
-    keywords = models.CharField(max_length=250, verbose_name='Keywords')
+    slug = models.SlugField(max_length=250, verbose_name='Slug', unique=True)
 
     def get_absolute_url(self):
         return reverse('album', args=[self.slug])
     
-    def save(self, *args, **kwargs):
-        self.slug = slugify(self.title)
-        super(Album, self).save(*args, **kwargs)
-
     class Meta:
         verbose_name = 'Альбом'
         verbose_name_plural = 'Альбомы'

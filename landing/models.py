@@ -2,12 +2,17 @@ from django.db import models
 from tinymce.models import HTMLField
 
 
-class TitleTag(models.Model):
-    url = models.CharField(max_length=250, verbose_name='URL')
-
+class SEOOptimizable(models.Model):
     seo_title = models.CharField(max_length=250, verbose_name='Title')
     desc = models.CharField(max_length=250, verbose_name='Description')
     keywords = models.CharField(max_length=250, verbose_name='Keywords')
+
+    class Meta:
+        abstract = True
+
+
+class TitleTag(SEOOptimizable):
+    url = models.CharField(max_length=250, verbose_name='URL')
 
     class Meta:
         verbose_name = 'SEO title'
@@ -44,13 +49,9 @@ class MailFromString(models.Model):
         return '%s' % self.host_user
 
 
-class Agreement(models.Model):
+class Agreement(SEOOptimizable):
     title = models.CharField(max_length=250, verbose_name='Заголовок')
     text = HTMLField(verbose_name='Текст')
-
-    seo_title = models.CharField(max_length=250, verbose_name='Title')
-    desc = models.CharField(max_length=250, verbose_name='Description')
-    keywords = models.CharField(max_length=250, verbose_name='Keywords')
 
     class Meta:
         verbose_name = 'Cоглашение на обработку персональных данных'

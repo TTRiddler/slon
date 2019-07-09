@@ -7,6 +7,7 @@ class ImageInAlbumInline(admin.TabularInline):
     extra = 0
 
 
+@admin.register(Album)
 class AlbumAdmin(admin.ModelAdmin):
     inlines = [ImageInAlbumInline]
     fieldsets = (
@@ -19,7 +20,4 @@ class AlbumAdmin(admin.ModelAdmin):
         }),
     )
 
-    readonly_fields = ('slug',)
-
-
-admin.site.register(Album, AlbumAdmin)
+    prepopulated_fields = {'slug': ('title',)}

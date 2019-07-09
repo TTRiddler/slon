@@ -13,5 +13,4 @@ class NewsAdmin(admin.ModelAdmin):
             'fields': ('slug', 'seo_title', 'desc', 'keywords'),
         }),
     )
-
-    readonly_fields = ('slug',)
+    prepopulated_fields = {'slug': ('title',)}

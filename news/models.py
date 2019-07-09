@@ -1,21 +1,17 @@
 from django.db import models
 from datetime import date
 from django.urls import reverse
-from slugify import slugify
 from tinymce.models import HTMLField
+from landing.models import SEOOptimizable
 
 
-class News(models.Model):
+class News(SEOOptimizable):
     title = models.CharField(max_length=250, unique=True, verbose_name='Название')
     short_desc = models.CharField(max_length=250, verbose_name='Краткое описание')
     text = HTMLField(verbose_name='Текст')
     is_active = models.BooleanField(default=True, verbose_name='Показывать на сайте')
     date = models.DateField(default=date.today, verbose_name='Дата создания')
-
-    slug = models.SlugField(max_length=250, verbose_name='Slug', unique=True, help_text='Заполнится при сохранении')
-    seo_title = models.CharField(max_length=250, verbose_name='Title')
-    desc = models.CharField(max_length=250, verbose_name='Description')
-    keywords = models.CharField(max_length=250, verbose_name='Keywords')
+    slug = models.SlugField(max_length=250, verbose_name='Slug', unique=True)
 
     def get_picture_url(self, filename):
         ext = filename.split('.')[-1]
@@ -26,10 +22,6 @@ class News(models.Model):
 
     def get_absolute_url(self):
         return reverse('news_detail', args=[self.slug])
-
-    def save(self, *args, **kwargs):
-        self.slug = slugify(self.title)
-        super(News, self).save(*args, **kwargs)
 
     class Meta:
         verbose_name = 'Новость'
