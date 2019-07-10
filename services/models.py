@@ -22,23 +22,23 @@ class Specialist(models.Model):
         return '%s' % self.name
 
 
-class ServiceCategory(SEOOptimizable):
+class Category(SEOOptimizable):
     title = models.CharField(max_length=250, unique=True, verbose_name='Название')
     slug = models.SlugField(max_length=250, verbose_name='Slug', unique=True)
 
     def get_absolute_url(self):
-        return reverse('service_type', args=[self.slug])
+        return reverse('category', args=[self.slug])
     
     class Meta:
-        verbose_name = 'Категория услуг'
-        verbose_name_plural = 'Категории услуг'
+        verbose_name = 'Категория'
+        verbose_name_plural = 'Категории'
 
     def __str__(self):
         return '%s' % self.title
 
 
 class Service(SEOOptimizable):
-    categories = models.ManyToManyField(ServiceCategory, related_name='services', verbose_name='Категории')
+    categories = models.ManyToManyField(Category, related_name='services', verbose_name='Категории')
     specialists = models.ManyToManyField(Specialist, related_name='services', verbose_name='Специалисты')
     title = models.CharField(max_length=250, unique=True, verbose_name='Название')
     slug = models.SlugField(max_length=250, verbose_name='Slug', unique=True)
@@ -77,23 +77,8 @@ class ImageInService(models.Model):
         return '%s' % self.id
 
 
-class ArtclassCategory(SEOOptimizable):
-    title = models.CharField(max_length=250, unique=True, verbose_name='Название')
-    slug = models.SlugField(max_length=250, verbose_name='Slug', unique=True)
-
-    def get_absolute_url(self):
-        return reverse('artclass_type', args=[self.slug])
-    
-    class Meta:
-        verbose_name = 'Категория кружков'
-        verbose_name_plural = 'Категории кружков'
-
-    def __str__(self):
-        return '%s' % self.title
-
-
 class Artclass(SEOOptimizable):
-    categories = models.ManyToManyField(ArtclassCategory, related_name='artclasses', verbose_name='Категории')
+    categories = models.ManyToManyField(Category, related_name='artclasses', verbose_name='Категории')
     specialists = models.ManyToManyField(Specialist, related_name='artclasses', verbose_name='Специалисты')
     title = models.CharField(max_length=250, unique=True, verbose_name='Название')
     slug = models.SlugField(max_length=250, verbose_name='Slug', unique=True)
@@ -163,11 +148,11 @@ class WeekDayArtclassElem(models.Model):
     weekday = models.ForeignKey(WeekDay, on_delete=models.CASCADE, related_name='artclass_elems', verbose_name='День недели')
     time = models.CharField(max_length=250, verbose_name='Время')
     specialist = models.ForeignKey(Specialist, on_delete=models.CASCADE, related_name='artclass_elems', verbose_name='Специалист')
-    artclass = models.ForeignKey(Artclass, on_delete=models.CASCADE, related_name='artclass_elems', verbose_name='Кружок')
+    service = models.ForeignKey(Artclass, on_delete=models.CASCADE, related_name='artclass_elems', verbose_name='Кружок')
 
     class Meta:
         verbose_name = 'Кружок в расписании'
         verbose_name_plural = 'Кружки в расписании'
 
     def __str__(self):
-        return '%s' % self.artclass.title
+        return '%s' % self.service.title

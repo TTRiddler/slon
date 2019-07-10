@@ -7,21 +7,6 @@ class ImageInServiceInline(admin.TabularInline):
     extra = 0
 
 
-@admin.register(ServiceCategory)
-class ServiceCategoryAdmin(admin.ModelAdmin):
-    fieldsets = (
-        (None, {
-            'fields': ('title',)
-        }),
-        ('SEO', {
-            'classes': ('grp-collapse grp-closed',),
-            'fields': ('slug', 'seo_title', 'desc', 'keywords'),
-        }),
-    )
-
-    prepopulated_fields = {'slug': ('title',)}
-
-
 @admin.register(Service)
 class ServiceAdmin(admin.ModelAdmin):
     inlines = [ImageInServiceInline]
@@ -44,8 +29,8 @@ class ImageInArtclassInline(admin.TabularInline):
     extra = 0
 
 
-@admin.register(ArtclassCategory)
-class ArtclassCategoryAdmin(admin.ModelAdmin):
+@admin.register(Category)
+class CategoryAdmin(admin.ModelAdmin):
     fieldsets = (
         (None, {
             'fields': ('title',)

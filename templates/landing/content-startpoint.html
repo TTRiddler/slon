@@ -7,7 +7,7 @@
         {% for page in flatpages %}
             <a class="d-block font-2 mb-2" href="{{ page.url }}">{{ page.title }}</a>
         {% endfor %}
-        <a class="d-block font-2 mb-2" href="schedule.html">расписание</a>
+        <a class="d-block font-2 mb-2" href="{% url 'schedule' %}">расписание</a>
         <a class="d-block font-2 mb-2" href="staff.html">специалисты</a>
         <a class="d-block font-2 mb-2" href="{% url 'news' %}">новости</a>
     </div>

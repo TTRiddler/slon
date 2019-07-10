@@ -67,7 +67,7 @@
                         {% for page in flatpages %}
                             <a class="dropdown-item text-lowercase font-2 smaller" href="{{ page.url }}">{{ page.title }}</a>
                         {% endfor %}
-                        <a class="dropdown-item text-lowercase font-2 smaller" href="schedule.html">расписание</a>
+                        <a class="dropdown-item text-lowercase font-2 smaller" href="{% url 'schedule' %}">расписание</a>
                         <a class="dropdown-item text-lowercase font-2 smaller" href="staff.html">специалисты</a>
                         <a class="dropdown-item text-lowercase font-2 smaller" href="{% url 'news' %}">новости</a>
                     </div>
@@ -122,7 +122,7 @@
                                 <a class="nav-link text-lowercase font-2" href="content.html">о клубе</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link text-lowercase font-2" href="schedule.html">расписание</a>
+                                <a class="nav-link text-lowercase font-2" href="{% url 'schedule' %}">расписание</a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link text-lowercase font-2" href="staff.html">специалисты</a>
