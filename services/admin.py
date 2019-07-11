@@ -33,7 +33,7 @@ class ImageInArtclassInline(admin.TabularInline):
 class CategoryAdmin(admin.ModelAdmin):
     fieldsets = (
         (None, {
-            'fields': ('title',)
+            'fields': ('title1', 'title2', 'color_prefix')
         }),
         ('SEO', {
             'classes': ('grp-collapse grp-closed',),
@@ -41,7 +41,7 @@ class CategoryAdmin(admin.ModelAdmin):
         }),
     )
 
-    prepopulated_fields = {'slug': ('title',)}
+    prepopulated_fields = {'slug': ('title1', 'title2')}
 
 
 @admin.register(Artclass)

@@ -1,4 +1,5 @@
 from django.db import models
+from django.urls import reverse
 from landing.models import SEOOptimizable
 from tinymce.models import HTMLField
 
@@ -23,18 +24,24 @@ class Specialist(models.Model):
 
 
 class Category(SEOOptimizable):
-    title = models.CharField(max_length=250, unique=True, verbose_name='Название')
+    title1 = models.CharField(max_length=120, verbose_name='Название (первая строка)')
+    title2 = models.CharField(max_length=120, verbose_name='Название (вторая строка)', blank=True, null=True)
     slug = models.SlugField(max_length=250, verbose_name='Slug', unique=True)
+    color_prefix = models.CharField(max_length=250, verbose_name='Префикс цвета')
 
-    def get_absolute_url(self):
-        return reverse('category', args=[self.slug])
-    
     class Meta:
         verbose_name = 'Категория'
         verbose_name_plural = 'Категории'
+        unique_together = ('title1', 'title2')
+
+    def title(self):
+        return '%s %s' % (self.title1, self.title2)
 
     def __str__(self):
-        return '%s' % self.title
+        if self.title2:
+            return '%s %s' % (self.title1, self.title2)
+        else:
+            return '%s' % self.title1
 
 
 class Service(SEOOptimizable):

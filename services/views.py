@@ -1,6 +1,6 @@
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404, redirect
 from django.views import View
-from services.models import WeekDay, WeekDayArtclassElem, WeekDayServiceElem
+from services.models import WeekDay, WeekDayArtclassElem, WeekDayServiceElem, Specialist, Artclass, Service, Category
 
 
 class ScheduleView(View):
@@ -23,3 +23,47 @@ class ScheduleView(View):
         }
 
         return render(request, 'services/schedule.html', context)
+
+
+class StaffView(View):
+    def get(self, request):
+        specialists = Specialist.objects.all()
+
+        context = {
+            'specialists': specialists,
+        }
+
+        return render(request, 'services/staff.html', context)
+
+
+class CategoryView(View):
+    def get(self, request, service_type, category_slug):
+        category = get_object_or_404(Category, slug=category_slug)
+
+        if service_type == 'artclass':
+            services = Artclass.objects.filter(categories__in=[category])
+        elif service_type == 'service':
+            services = Service.objects.filter(categories__in=[category])
+        else:
+            return redirect('/')
+
+        context = {
+            'category': category,
+            'services': services,
+        }
+
+        return render(request, 'services/category.html', context)
+
+
+class CategoriesView(View):
+    def get(self, request, service_type):
+        categories = Category.objects.all()
+
+        context = {
+            'categories': categories,
+            'service_type': service_type,
+        }
+
+        return render(request, 'services/categories.html', context)
+
+

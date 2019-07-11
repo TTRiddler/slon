@@ -60,49 +60,51 @@
                 </li>
 
                 <li class="nav-item dropdown">
-                    <a class="nav-link text-lowercase dropdown-toggle font-2" href="{% url 'content_startpoint' %}">
+                    <a class="nav-link text-lowercase dropdown-toggle font-2 {% if '/content-startpoint/' in request.path %}active{% endif %}
+                                                                             {% if '/schedule/' in request.path %}active{% endif %}
+                                                                             {% if '/staff/' in request.path %}active{% endif %}
+                                                                             {% if '/news/' in request.path %}active{% endif %}
+                                                                             {% for page in flatpages %} {% if page.url in request.path %}active{% endif %} {% endfor %}" href="{% url 'content_startpoint' %}">
                         о нас<i class="fas fa-angle-down fa-sm ml-2"></i>
                     </a>
                     <div class="dropdown-menu border-0 shadow">
                         {% for page in flatpages %}
-                            <a class="dropdown-item text-lowercase font-2 smaller" href="{{ page.url }}">{{ page.title }}</a>
+                            <a class="dropdown-item text-lowercase font-2 smaller {% if page.url in request.path %}active{% endif %}" href="{{ page.url }}">{{ page.title }}</a>
                         {% endfor %}
-                        <a class="dropdown-item text-lowercase font-2 smaller" href="{% url 'schedule' %}">расписание</a>
-                        <a class="dropdown-item text-lowercase font-2 smaller" href="staff.html">специалисты</a>
-                        <a class="dropdown-item text-lowercase font-2 smaller" href="{% url 'news' %}">новости</a>
+                        <a class="dropdown-item text-lowercase font-2 smaller {% if '/schedule/' in request.path %}active{% endif %}" href="{% url 'schedule' %}">расписание</a>
+                        <a class="dropdown-item text-lowercase font-2 smaller {% if '/staff/' in request.path %}active{% endif %}" href="{% url 'staff' %}">специалисты</a>
+                        <a class="dropdown-item text-lowercase font-2 smaller {% if '/news/' in request.path %}active{% endif %}" href="{% url 'news' %}">новости</a>
                     </div>
                 </li>
 
                 <li class="nav-item dropdown">
-                    <a class="nav-link text-lowercase dropdown-toggle font-2" href="catalogue-startpoint.html">
+                    <a class="nav-link text-lowercase dropdown-toggle font-2 {% if '/services/category/service/' in request.path %}active{% endif %}" href="{% url 'categories' service_type='service' %}">
                         услуги<i class="fas fa-angle-down fa-sm ml-2"></i>
                     </a>
                     <div class="dropdown-menu border-0 shadow">
-                        <a class="dropdown-item text-lowercase font-2 smaller" href="catalogue.html">0-3 года</a>
-                        <a class="dropdown-item text-lowercase font-2 smaller" href="catalogue.html">3-5 лет</a>
-                        <a class="dropdown-item text-lowercase font-2 smaller" href="catalogue.html">5-7 лет</a>
-                        <a class="dropdown-item text-lowercase font-2 smaller" href="catalogue.html">7-10 лет</a>
+                        {% for category in categories %}
+                            <a class="dropdown-item text-lowercase font-2 smaller {% if category.slug in request.path and '/service/' in request.path %}active{% endif %}" href="{% url 'category' service_type='service' category_slug=category.slug %}">{{ category.title }}</a>
+                        {% endfor %}
                     </div>
                 </li>
 
                 <li class="nav-item dropdown">
-                    <a class="nav-link text-lowercase dropdown-toggle font-2" href="catalogue-startpoint.html">
+                    <a class="nav-link text-lowercase dropdown-toggle font-2  {% if '/services/category/artclass/' in request.path %}active{% endif %}" href="{% url 'categories' service_type='artclass' %}">
                         кружки<i class="fas fa-angle-down fa-sm ml-2"></i>
                     </a>
                     <div class="dropdown-menu border-0 shadow">
-                        <a class="dropdown-item text-lowercase font-2 smaller" href="catalogue.html">0-3 года</a>
-                        <a class="dropdown-item text-lowercase font-2 smaller" href="catalogue.html">3-5 лет</a>
-                        <a class="dropdown-item text-lowercase font-2 smaller" href="catalogue.html">5-7 лет</a>
-                        <a class="dropdown-item text-lowercase font-2 smaller" href="catalogue.html">7-10 лет</a>
+                        {% for category in categories %}
+                            <a class="dropdown-item text-lowercase font-2 smaller {% if category.slug in request.path and '/artclass/' in request.path %}active{% endif %}" href="{% url 'category' service_type='artclass' category_slug=category.slug %}">{{ category.title }}</a>
+                        {% endfor %}
                     </div>
                 </li>
 
                 <li class="nav-item">
-                    <a class="nav-link text-lowercase font-2" href="{% url 'gallery' %}">галерея</a>
+                    <a class="nav-link text-lowercase font-2  {% if '/gallery/' in request.path %}active{% endif %}" href="{% url 'gallery' %}">галерея</a>
                 </li>
 
                 <li class="nav-item">
-                    <a class="nav-link text-lowercase font-2" href="{% url 'contacts' %}">контакты</a>
+                    <a class="nav-link text-lowercase font-2  {% if '/contacts/' in request.path %}active{% endif %}" href="{% url 'contacts' %}">контакты</a>
                 </li>
             </ul>
 
@@ -114,68 +116,60 @@
         <div class="d-lg-none offcanvas-collapse">
             <div class="container px-0 px-sm-3">
                 <ul class="navbar-nav mr-auto accordion" id="OffcanvasMenu">
-                    <li class="nav-item collapser">
+                    <li class="nav-item collapser {% if '/content-startpoint/' in request.path %}active{% endif %}
+                                                  {% if '/schedule/' in request.path %}active{% endif %}
+                                                  {% if '/staff/' in request.path %}active{% endif %}
+                                                  {% if '/news/' in request.path %}active{% endif %}
+                                                  {% for page in flatpages %} {% if page.url in request.path %}active{% endif %} {% endfor %}">
                         <a class="nav-link text-lowercase font-2 d-flex justify-content-between collapsed" href="#" data-toggle="collapse" data-target="#c1" aria-expanded="true" aria-controls="c1">о нас<i class="fas fa-angle-down fa-sm ml-2"></i></a>
 
                         <ul class="navbar-nav mr-auto accordion collapse" id="c1" data-parent="#OffcanvasMenu">
+                            {% for page in flatpages %}
+                                <li class="nav-item">
+                                    <a class="nav-link text-lowercase font-2 {% if page.url in request.path %}active{% endif %}" href="{{ page.url }}">о клубе</a>
+                                </li>
+                            {% endfor %}
                             <li class="nav-item">
-                                <a class="nav-link text-lowercase font-2" href="content.html">о клубе</a>
+                                <a class="nav-link text-lowercase font-2 {% if '/schedule/' in request.path %}active{% endif %}" href="{% url 'schedule' %}">расписание</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link text-lowercase font-2" href="{% url 'schedule' %}">расписание</a>
+                                <a class="nav-link text-lowercase font-2 {% if '/staff/' in request.path %}active{% endif %}" href="{% url 'staff' %}">специалисты</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link text-lowercase font-2" href="staff.html">специалисты</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link text-lowercase font-2" href="{% url 'news' %}">новости</a>
+                                <a class="nav-link text-lowercase font-2 {% if '/news/' in request.path %}active{% endif %}" href="{% url 'news' %}">новости</a>
                             </li>
                         </ul>
                     </li>
 
-                    <li class="nav-item collapser">
+                    <li class="nav-item collapser  {% if '/services/category/service/' in request.path %}active{% endif %}">
                         <a class="nav-link text-lowercase font-2 d-flex justify-content-between collapsed" href="#" data-toggle="collapse" data-target="#c2" aria-expanded="true" aria-controls="c1">услуги<i class="fas fa-angle-down fa-sm ml-2"></i></a>
 
                         <ul class="navbar-nav mr-auto accordion collapse" id="c2" data-parent="#OffcanvasMenu">
-                            <li class="nav-item">
-                                <a class="nav-link text-lowercase font-2" href="catalogue.html">0-3 года</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link text-lowercase font-2" href="catalogue.html">3-5 лет</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link text-lowercase font-2" href="catalogue.html">5-7 лет</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link text-lowercase font-2" href="catalogue.html">7-10 лет</a>
-                            </li>
+                            {% for category in categories %}
+                                <li class="nav-item">
+                                    <a class="nav-link text-lowercase font-2  {% if category.slug in request.path and '/service/' in request.path %}active{% endif %}" href="{% url 'category' service_type='service' category_slug=category.slug %}">{{ category.title }}</a>
+                                </li>
+                            {% endfor %}
                         </ul>
                     </li>
 
-                    <li class="nav-item collapser">
+                    <li class="nav-item collapser {% if '/services/category/artclass/' in request.path %}active{% endif %}">
                         <a class="nav-link text-lowercase font-2 d-flex justify-content-between collapsed" href="#" data-toggle="collapse" data-target="#c3" aria-expanded="true" aria-controls="c1">кружки<i class="fas fa-angle-down fa-sm ml-2"></i></a>
 
                         <ul class="navbar-nav mr-auto accordion collapse" id="c3" data-parent="#OffcanvasMenu">
-                            <li class="nav-item">
-                                <a class="nav-link text-lowercase font-2" href="catalogue.html">0-3 года</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link text-lowercase font-2" href="catalogue.html">3-5 лет</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link text-lowercase font-2" href="catalogue.html">5-7 лет</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link text-lowercase font-2" href="catalogue.html">7-10 лет</a>
-                            </li>
+                            {% for category in categories %}
+                                <li class="nav-item">
+                                    <a class="nav-link text-lowercase font-2 {% if category.slug in request.path and '/artclass/' in request.path %}active{% endif %}" href="{% url 'category' service_type='artclass' category_slug=category.slug %}">{{ category.title }}</a>
+                                </li>
+                            {% endfor %}
                         </ul>
                     </li>
 
-                    <li class="nav-item">
+                    <li class="nav-item {% if '/gallery/' in request.path %}active{% endif %}">
                         <a class="nav-link text-lowercase font-2" href="{% url 'gallery' %}">галерея</a>
                     </li>
 
-                    <li class="nav-item">
+                    <li class="nav-item {% if '/contacts/' in request.path %}active{% endif %}">
                         <a class="nav-link text-lowercase font-2" href="{% url 'contacts' %}">контакты</a>
                     </li>
 

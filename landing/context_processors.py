@@ -1,6 +1,7 @@
 from contacts.models import Phone, Messenger, Social, Address, Email
 from landing.models import TitleTag
 from callback.forms import CallBackForm
+from services.models import Category
 
 
 def context_info(request):
@@ -14,6 +15,8 @@ def context_info(request):
 
     callback_form = CallBackForm()
 
+    categories = Category.objects.all()
+
     context = {
         'phone': phone,
         'address': address,
@@ -22,6 +25,7 @@ def context_info(request):
         'socials': socials,
         'seo_titles': seo_titles,
         'callback_form': callback_form,
+        'categories': categories,
     }
 
     return context
