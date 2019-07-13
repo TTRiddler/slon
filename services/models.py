@@ -55,9 +55,6 @@ class Service(SEOOptimizable):
     some_lesson_price = models.PositiveIntegerField(verbose_name='Цена нескольких занятий')
     text = HTMLField(verbose_name='Текст')
 
-    def get_absolute_url(self):
-        return reverse('service', args=[self.slug])
-    
     class Meta:
         verbose_name = 'Услуга'
         verbose_name_plural = 'Услуги'
@@ -94,9 +91,6 @@ class Artclass(SEOOptimizable):
     some_lesson_nmb = models.PositiveIntegerField(verbose_name='Количество занятий')
     some_lesson_price = models.PositiveIntegerField(verbose_name='Цена нескольких занятий')
     text = HTMLField(verbose_name='Текст')
-
-    def get_absolute_url(self):
-        return reverse('artclass', args=[self.slug])
     
     class Meta:
         verbose_name = 'Кружок'

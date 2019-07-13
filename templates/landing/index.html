@@ -39,357 +39,58 @@
             <h2 class="text-center mt-0">Каждому найдётся занятие</h2>
             <div class="text-center">
                 <div class="btn-group btn-group-sm btn-group-toggle mb-3 mb-lg-5" data-toggle="buttons">
-                    <label class="btn btn-outline-primary font-2">
-                        <input type="radio" name="shuffle-filter" value="0-3" />0-3 года
-                    </label>
-                    <label class="btn btn-outline-primary font-2">
-                        <input type="radio" name="shuffle-filter" value="3-5" />3-5 лет
-                    </label>
-                    <label class="btn btn-outline-primary font-2">
-                        <input type="radio" name="shuffle-filter" value="5-7" />5-7 лет
-                    </label>
-                    <label class="btn btn-outline-primary font-2">
-                        <input type="radio" name="shuffle-filter" value="7-10" />7-10 лет
-                    </label>
+                    {% for category in categories %}
+                        <label class="btn btn-outline-primary font-2">
+                            <input type="radio" name="shuffle-filter" value="{{ category.slug }}" />{{ category.title }}
+                        </label>
+                    {% endfor %}
                 </div>
             </div>
 
             <div class="row shuffle">
-                <div class="shuffle-item col-lg-3 col-md-6" data-groups="[&quot;0-3&quot;]">
-                    <div class="card transition my-2 my-md-3">
-                        <img src="images/s1.jpg" class="card-img-top d-none d-lg-block" alt="...">
-                        <div class="card-body">
-                            <a href="catalogue-item.html" class="card-title h5 mt-0 mb-1 d-block stretched-link font-2 font-weight-normal">Раннее развитие</a>
-                            <span class="d-block small text-muted">45 мин / 2 раза в неделю</span>
-                        </div>
-                        <div class="card-footer">
-                            <div class="d-flex justify-content-between">                           
-                                <p class="card-text small text-muted m-0">1 занятие</p>
-                                <p class="card-text text-success font-2 font-weight-bold m-0"><span class="number">1900</span><i class="fas fa-ruble-sign fa-xs ml-1"></i></p>
+                {% for item in services %}
+                    <div class="shuffle-item col-lg-3 col-md-6" data-groups="[{% for category in item.categories.all %}&quot;{{ category.slug }}&quot;,{% endfor %} &quot;&quot;]">
+                        <div class="card transition my-2 my-md-3">
+                            <img src="{{ item.images.first.image.url|resize:'category_image' }}" class="card-img-top d-none d-lg-block" alt="...">
+                            <div class="card-body">
+                                <a href="{% url 'service' service_type='service' service_slug=item.slug %}" class="card-title h5 mt-0 mb-1 d-block stretched-link font-2 font-weight-normal">{{ item.title }}</a>
+                                <span class="d-block small text-muted">{{ item.schedule }}</span>
                             </div>
-                            <div class="d-flex justify-content-between">                           
-                                <p class="card-text small text-muted m-0">6 занятий</p>
-                                <p class="card-text text-success font-2 font-weight-bold m-0"><span class="number">10800</span><i class="fas fa-ruble-sign fa-xs ml-1"></i></p>
-                            </div>
+                            <div class="card-footer">
+                                <div class="d-flex justify-content-between">                           
+                                    <p class="card-text small text-muted m-0">1 занятие</p>
+                                    <p class="card-text text-success font-2 font-weight-bold m-0"><span class="number">{{ item.one_lesson_price }}</span><i class="fas fa-ruble-sign fa-xs ml-1"></i></p>
+                                </div>
+                                <div class="d-flex justify-content-between">                           
+                                    <p class="card-text small text-muted m-0">{{ item.some_lesson_nmb }} занятий</p>
+                                    <p class="card-text text-success font-2 font-weight-bold m-0"><span class="number">{{ item.some_lesson_price }}</span><i class="fas fa-ruble-sign fa-xs ml-1"></i></p>
+                                </div>
 
+                            </div>
                         </div>
                     </div>
-                </div>
-
-                <div class="shuffle-item col-lg-3 col-md-6" data-groups="[&quot;0-3&quot;, &quot;3-5&quot;]">
-                    <div class="card transition my-2 my-md-3">
-                        <img src="images/s2.jpg" class="card-img-top d-none d-lg-block" alt="...">
-                        <div class="card-body">
-                            <a href="catalogue-item.html" class="card-title h5 mt-0 mb-1 d-block stretched-link font-2 font-weight-normal">Мини-сад</a>
-                            <span class="d-block small text-muted">45 мин / 2 раза в неделю</span>
-                        </div>
-                        <div class="card-footer">
-                            <div class="d-flex justify-content-between">                           
-                                <p class="card-text small text-muted m-0">1 занятие</p>
-                                <p class="card-text text-success font-2 font-weight-bold m-0"><span class="number">1900</span><i class="fas fa-ruble-sign fa-xs ml-1"></i></p>
+                {% endfor %}
+                {% for item in artclasses %}
+                    <div class="shuffle-item col-lg-3 col-md-6" data-groups="[{% for category in item.categories.all %}&quot;{{ category.slug }}&quot;,{% endfor %} &quot;&quot;]">
+                        <div class="card transition my-2 my-md-3">
+                            <img src="{{ item.images.first.image.url|resize:'category_image' }}" class="card-img-top d-none d-lg-block" alt="...">
+                            <div class="card-body">
+                                <a href="{% url 'service' service_type='artclass' service_slug=item.slug %}" class="card-title h5 mt-0 mb-1 d-block stretched-link font-2 font-weight-normal">{{ item.title }}</a>
+                                <span class="d-block small text-muted">{{ item.schedule }}</span>
                             </div>
-                            <div class="d-flex justify-content-between">                           
-                                <p class="card-text small text-muted m-0">6 занятий</p>
-                                <p class="card-text text-success font-2 font-weight-bold m-0"><span class="number">10800</span><i class="fas fa-ruble-sign fa-xs ml-1"></i></p>
+                            <div class="card-footer">
+                                <div class="d-flex justify-content-between">                           
+                                    <p class="card-text small text-muted m-0">1 занятие</p>
+                                    <p class="card-text text-success font-2 font-weight-bold m-0"><span class="number">{{ item.one_lesson_price }}</span><i class="fas fa-ruble-sign fa-xs ml-1"></i></p>
+                                </div>
+                                <div class="d-flex justify-content-between">                           
+                                    <p class="card-text small text-muted m-0">{{ item.some_lesson_nmb }} занятий</p>
+                                    <p class="card-text text-success font-2 font-weight-bold m-0"><span class="number">{{ item.some_lesson_price }}</span><i class="fas fa-ruble-sign fa-xs ml-1"></i></p>
+                                </div>
                             </div>
-
-                        </div>
-                    </div>
-                </div>
-
-                <div class="shuffle-item col-lg-3 col-md-6" data-groups="[&quot;3-5&quot;]">
-                    <div class="card transition my-2 my-md-3">
-                        <img src="images/s3.jpg" class="card-img-top d-none d-lg-block" alt="...">
-                        <div class="card-body">
-                            <a href="catalogue-item.html" class="card-title h5 mt-0 mb-1 d-block stretched-link font-2 font-weight-normal">Комплексное развитие</a>
-                            <span class="d-block small text-muted">45 мин / 2 раза в неделю</span>
-                        </div>
-                        <div class="card-footer">
-                            <div class="d-flex justify-content-between">                           
-                                <p class="card-text small text-muted m-0">1 занятие</p>
-                                <p class="card-text text-success font-2 font-weight-bold m-0"><span class="number">1900</span><i class="fas fa-ruble-sign fa-xs ml-1"></i></p>
-                            </div>
-                            <div class="d-flex justify-content-between">                           
-                                <p class="card-text small text-muted m-0">6 занятий</p>
-                                <p class="card-text text-success font-2 font-weight-bold m-0"><span class="number">10800</span><i class="fas fa-ruble-sign fa-xs ml-1"></i></p>
-                            </div>
-
                         </div>
                     </div>
-                </div>
-
-                <div class="shuffle-item col-lg-3 col-md-6" data-groups="[&quot;3-5&quot;, &quot;5-7&quot;, &quot;7-10&quot;]">
-                    <div class="card transition my-2 my-md-3">
-                        <img src="images/s4.jpg" class="card-img-top d-none d-lg-block" alt="...">
-                        <div class="card-body">
-                            <a href="catalogue-item.html" class="card-title h5 mt-0 mb-1 d-block stretched-link font-2 font-weight-normal">Шахматы</a>
-                            <span class="d-block small text-muted">45 мин / 2 раза в неделю</span>
-                        </div>
-                        <div class="card-footer">
-                            <div class="d-flex justify-content-between">                           
-                                <p class="card-text small text-muted m-0">1 занятие</p>
-                                <p class="card-text text-success font-2 font-weight-bold m-0"><span class="number">1900</span><i class="fas fa-ruble-sign fa-xs ml-1"></i></p>
-                            </div>
-                            <div class="d-flex justify-content-between">                           
-                                <p class="card-text small text-muted m-0">6 занятий</p>
-                                <p class="card-text text-success font-2 font-weight-bold m-0"><span class="number">10800</span><i class="fas fa-ruble-sign fa-xs ml-1"></i></p>
-                            </div>
-
-                        </div>
-                    </div>
-                </div>
-
-                <div class="shuffle-item col-lg-3 col-md-6" data-groups="[&quot;3-5&quot;, &quot;5-7&quot;]">
-                    <div class="card transition my-2 my-md-3">
-                        <img src="images/s5.jpg" class="card-img-top d-none d-lg-block" alt="...">
-                        <div class="card-body">
-                            <a href="catalogue-item.html" class="card-title h5 mt-0 mb-1 d-block stretched-link font-2 font-weight-normal">Английский язык</a>
-                            <span class="d-block small text-muted">45 мин / 2 раза в неделю</span>
-                        </div>
-                        <div class="card-footer">
-                            <div class="d-flex justify-content-between">                           
-                                <p class="card-text small text-muted m-0">1 занятие</p>
-                                <p class="card-text text-success font-2 font-weight-bold m-0"><span class="number">1900</span><i class="fas fa-ruble-sign fa-xs ml-1"></i></p>
-                            </div>
-                            <div class="d-flex justify-content-between">                           
-                                <p class="card-text small text-muted m-0">6 занятий</p>
-                                <p class="card-text text-success font-2 font-weight-bold m-0"><span class="number">10800</span><i class="fas fa-ruble-sign fa-xs ml-1"></i></p>
-                            </div>
-
-                        </div>
-                    </div>
-                </div>
-
-                <div class="shuffle-item col-lg-3 col-md-6" data-groups="[&quot;3-5&quot;, &quot;5-7&quot;]">
-                    <div class="card transition my-2 my-md-3">
-                        <img src="images/s6.jpg" class="card-img-top d-none d-lg-block" alt="...">
-                        <div class="card-body">
-                            <a href="catalogue-item.html" class="card-title h5 mt-0 mb-1 d-block stretched-link font-2 font-weight-normal">Китайский язык</a>
-                            <span class="d-block small text-muted">45 мин / 2 раза в неделю</span>
-                        </div>
-                        <div class="card-footer">
-                            <div class="d-flex justify-content-between">                           
-                                <p class="card-text small text-muted m-0">1 занятие</p>
-                                <p class="card-text text-success font-2 font-weight-bold m-0"><span class="number">1900</span><i class="fas fa-ruble-sign fa-xs ml-1"></i></p>
-                            </div>
-                            <div class="d-flex justify-content-between">                           
-                                <p class="card-text small text-muted m-0">6 занятий</p>
-                                <p class="card-text text-success font-2 font-weight-bold m-0"><span class="number">10800</span><i class="fas fa-ruble-sign fa-xs ml-1"></i></p>
-                            </div>
-
-                        </div>
-                    </div>
-                </div>
-
-                <div class="shuffle-item col-lg-3 col-md-6" data-groups="[&quot;3-5&quot;, &quot;5-7&quot;, &quot;7-10&quot;]">
-                    <div class="card transition my-2 my-md-3">
-                        <img src="images/s7.jpg" class="card-img-top d-none d-lg-block" alt="...">
-                        <div class="card-body">
-                            <a href="catalogue-item.html" class="card-title h5 mt-0 mb-1 d-block stretched-link font-2 font-weight-normal">Творческая мастерская</a>
-                            <span class="d-block small text-muted">45 мин / 2 раза в неделю</span>
-                        </div>
-                        <div class="card-footer">
-                            <div class="d-flex justify-content-between">                           
-                                <p class="card-text small text-muted m-0">1 занятие</p>
-                                <p class="card-text text-success font-2 font-weight-bold m-0"><span class="number">1900</span><i class="fas fa-ruble-sign fa-xs ml-1"></i></p>
-                            </div>
-                            <div class="d-flex justify-content-between">                           
-                                <p class="card-text small text-muted m-0">6 занятий</p>
-                                <p class="card-text text-success font-2 font-weight-bold m-0"><span class="number">10800</span><i class="fas fa-ruble-sign fa-xs ml-1"></i></p>
-                            </div>
-
-                        </div>
-                    </div>
-                </div>
-
-                <div class="shuffle-item col-lg-3 col-md-6" data-groups="[&quot;3-5&quot;, &quot;5-7&quot;, &quot;7-10&quot;]">
-                    <div class="card transition my-2 my-md-3">
-                        <img src="images/s8.jpg" class="card-img-top d-none d-lg-block" alt="...">
-                        <div class="card-body">
-                            <a href="catalogue-item.html" class="card-title h5 mt-0 mb-1 d-block stretched-link font-2 font-weight-normal">Хореография</a>
-                            <span class="d-block small text-muted">45 мин / 2 раза в неделю</span>
-                        </div>
-                        <div class="card-footer">
-                            <div class="d-flex justify-content-between">                           
-                                <p class="card-text small text-muted m-0">1 занятие</p>
-                                <p class="card-text text-success font-2 font-weight-bold m-0"><span class="number">1900</span><i class="fas fa-ruble-sign fa-xs ml-1"></i></p>
-                            </div>
-                            <div class="d-flex justify-content-between">                           
-                                <p class="card-text small text-muted m-0">6 занятий</p>
-                                <p class="card-text text-success font-2 font-weight-bold m-0"><span class="number">10800</span><i class="fas fa-ruble-sign fa-xs ml-1"></i></p>
-                            </div>
-
-                        </div>
-                    </div>
-                </div>
-
-                <div class="shuffle-item col-lg-3 col-md-6" data-groups="[&quot;5-7&quot;]">
-                    <div class="card transition my-2 my-md-3">
-                        <img src="images/s9.jpg" class="card-img-top d-none d-lg-block" alt="...">
-                        <div class="card-body">
-                            <a href="catalogue-item.html" class="card-title h5 mt-0 mb-1 d-block stretched-link font-2 font-weight-normal">Дорожка к школе</a>
-                            <span class="d-block small text-muted">45 мин / 2 раза в неделю</span>
-                        </div>
-                        <div class="card-footer">
-                            <div class="d-flex justify-content-between">                           
-                                <p class="card-text small text-muted m-0">1 занятие</p>
-                                <p class="card-text text-success font-2 font-weight-bold m-0"><span class="number">1900</span><i class="fas fa-ruble-sign fa-xs ml-1"></i></p>
-                            </div>
-                            <div class="d-flex justify-content-between">                           
-                                <p class="card-text small text-muted m-0">6 занятий</p>
-                                <p class="card-text text-success font-2 font-weight-bold m-0"><span class="number">10800</span><i class="fas fa-ruble-sign fa-xs ml-1"></i></p>
-                            </div>
-
-                        </div>
-                    </div>
-                </div>
-
-                <div class="shuffle-item col-lg-3 col-md-6" data-groups="[&quot;5-7&quot;]">
-                    <div class="card transition my-2 my-md-3">
-                        <img src="images/s10.jpg" class="card-img-top d-none d-lg-block" alt="...">
-                        <div class="card-body">
-                            <a href="catalogue-item.html" class="card-title h5 mt-0 mb-1 d-block stretched-link font-2 font-weight-normal">Школа дошколят</a>
-                            <span class="d-block small text-muted">45 мин / 2 раза в неделю</span>
-                        </div>
-                        <div class="card-footer">
-                            <div class="d-flex justify-content-between">                           
-                                <p class="card-text small text-muted m-0">1 занятие</p>
-                                <p class="card-text text-success font-2 font-weight-bold m-0"><span class="number">1900</span><i class="fas fa-ruble-sign fa-xs ml-1"></i></p>
-                            </div>
-                            <div class="d-flex justify-content-between">                           
-                                <p class="card-text small text-muted m-0">6 занятий</p>
-                                <p class="card-text text-success font-2 font-weight-bold m-0"><span class="number">10800</span><i class="fas fa-ruble-sign fa-xs ml-1"></i></p>
-                            </div>
-
-                        </div>
-                    </div>
-                </div>
-
-                <div class="shuffle-item col-lg-3 col-md-6" data-groups="[&quot;5-7&quot;, &quot;7-10&quot;]">
-                    <div class="card transition my-2 my-md-3">
-                        <img src="images/s11.jpg" class="card-img-top d-none d-lg-block" alt="...">
-                        <div class="card-body">
-                            <a href="catalogue-item.html" class="card-title h5 mt-0 mb-1 d-block stretched-link font-2 font-weight-normal">Живопись</a>
-                            <span class="d-block small text-muted">45 мин / 2 раза в неделю</span>
-                        </div>
-                        <div class="card-footer">
-                            <div class="d-flex justify-content-between">                           
-                                <p class="card-text small text-muted m-0">1 занятие</p>
-                                <p class="card-text text-success font-2 font-weight-bold m-0"><span class="number">1900</span><i class="fas fa-ruble-sign fa-xs ml-1"></i></p>
-                            </div>
-                            <div class="d-flex justify-content-between">                           
-                                <p class="card-text small text-muted m-0">6 занятий</p>
-                                <p class="card-text text-success font-2 font-weight-bold m-0"><span class="number">10800</span><i class="fas fa-ruble-sign fa-xs ml-1"></i></p>
-                            </div>
-
-                        </div>
-                    </div>
-                </div>
-
-                <div class="shuffle-item col-lg-3 col-md-6" data-groups="[&quot;5-7&quot;]">
-                    <div class="card transition my-2 my-md-3">
-                        <img src="images/s12.jpg" class="card-img-top d-none d-lg-block" alt="...">
-                        <div class="card-body">
-                            <a href="catalogue-item.html" class="card-title h5 mt-0 mb-1 d-block stretched-link font-2 font-weight-normal">Песочная терапия</a>
-                            <span class="d-block small text-muted">45 мин / 2 раза в неделю</span>
-                        </div>
-                        <div class="card-footer">
-                            <div class="d-flex justify-content-between">                           
-                                <p class="card-text small text-muted m-0">1 занятие</p>
-                                <p class="card-text text-success font-2 font-weight-bold m-0"><span class="number">1900</span><i class="fas fa-ruble-sign fa-xs ml-1"></i></p>
-                            </div>
-                            <div class="d-flex justify-content-between">                           
-                                <p class="card-text small text-muted m-0">6 занятий</p>
-                                <p class="card-text text-success font-2 font-weight-bold m-0"><span class="number">10800</span><i class="fas fa-ruble-sign fa-xs ml-1"></i></p>
-                            </div>
-
-                        </div>
-                    </div>
-                </div>
-
-                <div class="shuffle-item col-lg-3 col-md-6" data-groups="[&quot;5-7&quot;, &quot;7-10&quot;]">
-                    <div class="card transition my-2 my-md-3">
-                        <img src="images/s13.jpg" class="card-img-top d-none d-lg-block" alt="...">
-                        <div class="card-body">
-                            <a href="catalogue-item.html" class="card-title h5 mt-0 mb-1 d-block stretched-link font-2 font-weight-normal">Кулинарный клуб</a>
-                            <span class="d-block small text-muted">45 мин / 2 раза в неделю</span>
-                        </div>
-                        <div class="card-footer">
-                            <div class="d-flex justify-content-between">                           
-                                <p class="card-text small text-muted m-0">1 занятие</p>
-                                <p class="card-text text-success font-2 font-weight-bold m-0"><span class="number">1900</span><i class="fas fa-ruble-sign fa-xs ml-1"></i></p>
-                            </div>
-                            <div class="d-flex justify-content-between">                           
-                                <p class="card-text small text-muted m-0">6 занятий</p>
-                                <p class="card-text text-success font-2 font-weight-bold m-0"><span class="number">10800</span><i class="fas fa-ruble-sign fa-xs ml-1"></i></p>
-                            </div>
-
-                        </div>
-                    </div>
-                </div>
-
-                <div class="shuffle-item col-lg-3 col-md-6" data-groups="[&quot;7-10&quot;]">
-                    <div class="card transition my-2 my-md-3">
-                        <img src="images/s14.jpg" class="card-img-top d-none d-lg-block" alt="...">
-                        <div class="card-body">
-                            <a href="catalogue-item.html" class="card-title h5 mt-0 mb-1 d-block stretched-link font-2 font-weight-normal">Продленка</a>
-                            <span class="d-block small text-muted">45 мин / 2 раза в неделю</span>
-                        </div>
-                        <div class="card-footer">
-                            <div class="d-flex justify-content-between">                           
-                                <p class="card-text small text-muted m-0">1 занятие</p>
-                                <p class="card-text text-success font-2 font-weight-bold m-0"><span class="number">1900</span><i class="fas fa-ruble-sign fa-xs ml-1"></i></p>
-                            </div>
-                            <div class="d-flex justify-content-between">                           
-                                <p class="card-text small text-muted m-0">6 занятий</p>
-                                <p class="card-text text-success font-2 font-weight-bold m-0"><span class="number">10800</span><i class="fas fa-ruble-sign fa-xs ml-1"></i></p>
-                            </div>
-
-                        </div>
-                    </div>
-                </div>
-
-                <div class="shuffle-item col-lg-3 col-md-6" data-groups="[&quot;7-10&quot;]">
-                    <div class="card transition my-2 my-md-3">
-                        <img src="images/s15.jpg" class="card-img-top d-none d-lg-block" alt="...">
-                        <div class="card-body">
-                            <a href="catalogue-item.html" class="card-title h5 mt-0 mb-1 d-block stretched-link font-2 font-weight-normal">Домашнее задание в клубе</a>
-                            <span class="d-block small text-muted">45 мин / 2 раза в неделю</span>
-                        </div>
-                        <div class="card-footer">
-                            <div class="d-flex justify-content-between">                           
-                                <p class="card-text small text-muted m-0">1 занятие</p>
-                                <p class="card-text text-success font-2 font-weight-bold m-0"><span class="number">1900</span><i class="fas fa-ruble-sign fa-xs ml-1"></i></p>
-                            </div>
-                            <div class="d-flex justify-content-between">                           
-                                <p class="card-text small text-muted m-0">6 занятий</p>
-                                <p class="card-text text-success font-2 font-weight-bold m-0"><span class="number">10800</span><i class="fas fa-ruble-sign fa-xs ml-1"></i></p>
-                            </div>
-
-                        </div>
-                    </div>
-                </div>
-
-                <div class="shuffle-item col-lg-3 col-md-6" data-groups="[&quot;7-10&quot;]">
-                    <div class="card transition my-2 my-md-3">
-                        <img src="images/s16.jpg" class="card-img-top d-none d-lg-block" alt="...">
-                        <div class="card-body">
-                            <a href="catalogue-item.html" class="card-title h5 mt-0 mb-1 d-block stretched-link font-2 font-weight-normal">Иностранные языки</a>
-                            <span class="d-block small text-muted">45 мин / 2 раза в неделю</span>
-                        </div>
-                        <div class="card-footer">
-                            <div class="d-flex justify-content-between">                           
-                                <p class="card-text small text-muted m-0">1 занятие</p>
-                                <p class="card-text text-success font-2 font-weight-bold m-0"><span class="number">1900</span><i class="fas fa-ruble-sign fa-xs ml-1"></i></p>
-                            </div>
-                            <div class="d-flex justify-content-between">                           
-                                <p class="card-text small text-muted m-0">6 занятий</p>
-                                <p class="card-text text-success font-2 font-weight-bold m-0"><span class="number">10800</span><i class="fas fa-ruble-sign fa-xs ml-1"></i></p>
-                            </div>
-
-                        </div>
-                    </div>
-                </div>
+                {% endfor %}
             </div>
         </div>
     </section>

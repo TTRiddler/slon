@@ -42,14 +42,18 @@ class CategoryView(View):
 
         if service_type == 'artclass':
             services = Artclass.objects.filter(categories__in=[category])
+            service_type_name = 'Кружки'
         elif service_type == 'service':
             services = Service.objects.filter(categories__in=[category])
+            service_type_name = 'Услуги'
         else:
             return redirect('/')
 
         context = {
             'category': category,
             'services': services,
+            'service_type': service_type,
+            'service_type_name': service_type_name,
         }
 
         return render(request, 'services/category.html', context)
@@ -58,12 +62,40 @@ class CategoryView(View):
 class CategoriesView(View):
     def get(self, request, service_type):
         categories = Category.objects.all()
+        if service_type == 'service':
+            service_type_name = 'Услуги'
+        elif service_type == 'artclass':
+            service_type_name = 'Кружки'
+        else:
+            return redirect('/')
 
         context = {
             'categories': categories,
             'service_type': service_type,
+            'service_type_name': service_type_name,
         }
 
         return render(request, 'services/categories.html', context)
+
+
+class ServiceView(View):
+    def get(self, request, service_type, service_slug):
+
+        if service_type == 'artclass':
+            service = get_object_or_404(Artclass, slug=service_slug)
+            service_type_name = 'Кружки'
+        elif service_type == 'service':
+            service = get_object_or_404(Service, slug=service_slug)
+            service_type_name = 'Услуги'
+        else:
+            return redirect('/')
+
+        context = {
+            'service': service,
+            'service_type': service_type,
+            'service_type_name': service_type_name,
+        }
+
+        return render(request, 'services/service.html', context)
 
 

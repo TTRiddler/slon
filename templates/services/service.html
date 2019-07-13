@@ -1,0 +1,62 @@
+{% extends 'base.html' %}
+{% load imagefit %}
+
+{% block title %}
+    <title>{{ service.seo_title }}</title>
+    <meta name="description" content="{{ service.desc }}">
+    <meta name="keywords" content="{{ service.keywords }}">
+{% endblock title %}
+
+{% block content %}
+<div class="container pb-4 pb-lg-5">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="{% url 'index' %}">Главная</a></li>
+        <li class="breadcrumb-item"><a href="{% url 'categories' service_type %}">{{ service_type_name }}</a></li>
+        <li class="breadcrumb-item active">{{ service.title }}</li>
+    </ol>
+    <div class="row">
+        <div class="col-lg-4">
+            <div class="sticky-top slider-container transition mb-md-5 mb-4">
+                <div class="slider slider-for">
+                    {% for image in service.images.all %}
+                        <div>
+                            <a href="{{ image.image.url|resize:'big_image' }}" class="zoom-image">
+                                <img src="{{ image.image.url|resize:'service_image' }}" class="w-100" alt="...">
+                            </a>
+                        </div>
+                    {% endfor %}
+                </div>
+                <div class="slider slider-nav">
+                    {% for image in service.images.all %}
+                        <div class="bg-primary rounded-lg">
+                            <img src="{{ image.image.url|resize:'service_mini' }}" class="w-100" alt="...">
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-8">
+            <div class="bg-white p-md-5 p-3 shadow-sm rounded-lg">
+                {% for item in service.categories.all %}
+                    <span class="badge badge-primary">{{ item.title }}</span>
+                {% endfor %}
+                <h1 class="mt-3 mb-2">{{ service.title }}</h1>
+                <p class="text-muted font-2 mb-0">{{ service.schedule }}</p>
+                <p class="card-text text-muted h4 font-weight-normal mb-2 d-inline-block mr-5"><span class="number h2 text-success">{{ service.one_lesson_price }}</span><i class="fas fa-ruble-sign fa-xs ml-1 text-success"></i> / 1 занятие</p>
+                <p class="card-text text-muted h4 font-weight-normal m-0 d-inline-block"><span class="number h2 text-success">{{ service.some_lesson_price }}</span><i class="fas fa-ruble-sign fa-xs ml-1 text-success"></i> / {{ service.some_lesson_nmb }} занятий</p>
+
+                <a class="btn btn-primary btn-lg px-4 mr-4 font-3 mb-0 mt-4 align-middle w-dynamic" href="#" role="button" data-toggle="modal" data-target="#SignModal"><i class="fas fa-tag fa-xs mr-2 d-none d-sm-inline-block"></i>записаться со скидкой</a>
+
+                <span class="smaller text-muted d-inline-block mt-4 align-middle">или позвоните нам:<br><span class="font-2 h5 text-danger font-weight-bold">{{ phone.phone }}</span></span>
+
+                <div class="border-bottom mt-md-5 mt-4"></div>
+
+                <article>
+                    {{ service.text|safe }}
+                </article>
+            </div>
+        </div>
+    </div>
+</div>
+{% include 'booknow/__booknow_modal.html' %}
+{% endblock content %}

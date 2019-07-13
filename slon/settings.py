@@ -165,6 +165,9 @@ IMAGEFIT_PRESETS = {
     'big_image': {'width': 1920, 'height': 1080, 'crop': True},
     'landing_image': {'width': 330, 'height': 440, 'crop': True},
     'staff_image': {'width': 510, 'height': 510, 'crop': True},
+    'service_image': {'width': 684, 'height': 684, 'crop': True},
+    'service_mini': {'width': 132, 'height': 132, 'crop': True},
+    'category_image': {'width': 255, 'height': 170, 'crop': True},
 }
 
 GOOGLE_RECAPTCHA_SECRET_KEY = '6LcNnpAUAAAAAP8zDEOl2Erhj2F9bMPOjQza78Hb'

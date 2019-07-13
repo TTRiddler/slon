@@ -5,6 +5,7 @@ from contacts.models import Address, Phone, Email, MapCode, Schedule, Messenger
 from news.models import News
 from landing.models import Agreement, AboutUs, OurPros
 from gallery.models import Album
+from services.models import Artclass, Service
 
 
 class IndexView(View):
@@ -22,6 +23,9 @@ class IndexView(View):
 
         about_us = AboutUs.objects.first()
         our_proses = OurPros.objects.all()
+        
+        services = Service.objects.all()
+        artclasses = Artclass.objects.all()
                 
         context = {
             'phones': phones,
@@ -34,6 +38,8 @@ class IndexView(View):
             'last_album': last_album,
             'about_us': about_us,
             'our_proses': our_proses,
+            'services': services,
+            'artclasses': artclasses,
         }
 
         return render(request, 'landing/index.html', context)
