@@ -60,6 +60,7 @@ class Schedule(models.Model):
 class Messenger(models.Model):
     name = models.CharField(max_length=250, verbose_name='Название мессенджера')
     number = models.CharField(max_length=20, verbose_name='Номер')
+    text = models.TextField(verbose_name='Текст')
 
     class Meta:
         verbose_name = 'Мессенджер'
@@ -71,6 +72,7 @@ class Messenger(models.Model):
 
 class Social(models.Model):
     name = models.CharField(max_length=250, verbose_name='Название социальной сети')
+    short_name = models.CharField(max_length=250, verbose_name='Короткое название')
     link = models.URLField(max_length=250, verbose_name='Ссылка')
 
     class Meta:

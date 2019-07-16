@@ -9,11 +9,7 @@
         </span>
 
         {% for social in socials %}
-            <a href="{{ social.link }}" target="_blank" class="text-gray py-2
-                                                                {% if social.name == 'vk' %} vk {% endif %}
-                                                                {% if social.name == 'instagram' %} inst {% endif %} 
-                                                                {% if social.name == 'odnoklassniki' %} odn {% endif %}">
-                                                                <i class="fab fa-{{ social.name }}"></i></a>
+            <a href="{{ social.link }}" target="_blank" class="text-gray py-2  {{ social.short_name }}"><i class="fab fa-{{ social.name }}"></i></a>
         {% endfor %}
     </div>
 </div>
@@ -109,7 +105,7 @@
             </ul>
 
             <span class="navbar-text">
-                <a href="https://wa.me/{{ messenger.number }}?text=Текст%20стандартного%20сообщения." target="_blank" class="btn btn-secondary btn-sm text-white font-2 small"><i class="fab fa-whatsapp align-middle mr-2" style="color: #fff; font-size: 1.1rem;"></i><span class="d-none d-xl-inline">написать в </span>WhatsApp</a>
+                <a href="https://wa.me/{{ messenger.number }}?text={{ messenger.text }}" target="_blank" class="btn btn-secondary btn-sm text-white font-2 small"><i class="fab fa-whatsapp align-middle mr-2" style="color: #fff; font-size: 1.1rem;"></i><span class="d-none d-xl-inline">написать в </span>WhatsApp</a>
             </span>
         </div>
 
@@ -174,7 +170,7 @@
                     </li>
 
                     <li class="nav-item">
-                        <a href="https://wa.me/{{ messenger.number }}?text=Текст%20стандартного%20сообщения." target="_blank" class="btn btn-secondary btn-sm text-white font-2 small d-block d-md-inline-block mt-3 py-2"><i class="fab fa-whatsapp align-middle mr-2" style="color: #fff; font-size: 1.1rem;"></i>написать в WhatsApp</a>
+                        <a href="https://wa.me/{{ messenger.number }}?text={{ messenger.text }}" target="_blank" class="btn btn-secondary btn-sm text-white font-2 small d-block d-md-inline-block mt-3 py-2"><i class="fab fa-whatsapp align-middle mr-2" style="color: #fff; font-size: 1.1rem;"></i>написать в WhatsApp</a>
                     </li>
                 </ul>
             </div>

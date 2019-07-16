@@ -28,11 +28,7 @@
                     </li>
                     <li>
                         {% for social in socials %}
-                            <a href="{{ social.link }}" target="_blank" class="text-gray
-                                                                               {% if social.name == 'vk' %} vk {% endif %}
-                                                                               {% if social.name == 'instagram' %} inst {% endif %} 
-                                                                               {% if social.name == 'odnoklassniki' %} odn {% endif %}">
-                                                                               <i class="fab fa-{{ social.name }}"></i></a>
+                            <a href="{{ social.link }}" target="_blank" class="text-gray {{ social.short_name }}"><i class="fab fa-{{ social.name }}"></i></a>
                         {% endfor %}
                     </li>
                 </ul>

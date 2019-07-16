@@ -54,6 +54,7 @@ class Service(SEOOptimizable):
     some_lesson_nmb = models.PositiveIntegerField(verbose_name='Количество занятий')
     some_lesson_price = models.PositiveIntegerField(verbose_name='Цена нескольких занятий')
     text = HTMLField(verbose_name='Текст')
+    is_active = models.BooleanField(default=True, verbose_name='Показывать на сайте')
 
     class Meta:
         verbose_name = 'Услуга'
@@ -91,6 +92,7 @@ class Artclass(SEOOptimizable):
     some_lesson_nmb = models.PositiveIntegerField(verbose_name='Количество занятий')
     some_lesson_price = models.PositiveIntegerField(verbose_name='Цена нескольких занятий')
     text = HTMLField(verbose_name='Текст')
+    is_active = models.BooleanField(default=True, verbose_name='Показывать на сайте')
     
     class Meta:
         verbose_name = 'Кружок'

@@ -12,7 +12,7 @@ class ServiceAdmin(admin.ModelAdmin):
     inlines = [ImageInServiceInline]
     fieldsets = (
         (None, {
-            'fields': ('categories', 'specialists', 'title', 'schedule', 'one_lesson_price', 'some_lesson_nmb', 'some_lesson_price', 'text')
+            'fields': ('categories', 'specialists', 'title', 'schedule', 'one_lesson_price', 'some_lesson_nmb', 'some_lesson_price', 'text', 'is_active')
         }),
         ('SEO', {
             'classes': ('grp-collapse grp-closed',),
@@ -49,7 +49,7 @@ class ArtclassAdmin(admin.ModelAdmin):
     inlines = [ImageInArtclassInline]
     fieldsets = (
         (None, {
-            'fields': ('categories', 'specialists', 'title', 'schedule', 'one_lesson_price', 'some_lesson_nmb', 'some_lesson_price', 'text')
+            'fields': ('categories', 'specialists', 'title', 'schedule', 'one_lesson_price', 'some_lesson_nmb', 'some_lesson_price', 'text', 'is_active')
         }),
         ('SEO', {
             'classes': ('grp-collapse grp-closed',),

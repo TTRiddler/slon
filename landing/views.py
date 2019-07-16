@@ -24,8 +24,8 @@ class IndexView(View):
         about_us = AboutUs.objects.first()
         our_proses = OurPros.objects.all()
         
-        services = Service.objects.all()
-        artclasses = Artclass.objects.all()
+        services = Service.objects.filter(is_active=True)
+        artclasses = Artclass.objects.filter(is_active=True)
                 
         context = {
             'phones': phones,

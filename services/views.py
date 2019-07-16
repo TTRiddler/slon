@@ -41,10 +41,10 @@ class CategoryView(View):
         category = get_object_or_404(Category, slug=category_slug)
 
         if service_type == 'artclass':
-            services = Artclass.objects.filter(categories__in=[category])
+            services = Artclass.objects.filter(categories__in=[category], is_active=True)
             service_type_name = 'Кружки'
         elif service_type == 'service':
-            services = Service.objects.filter(categories__in=[category])
+            services = Service.objects.filter(categories__in=[category], is_active=True)
             service_type_name = 'Услуги'
         else:
             return redirect('/')
