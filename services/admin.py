@@ -1,4 +1,5 @@
 from django.contrib import admin
+from adminsortable2.admin import SortableAdminMixin
 from services.models import *
 
 
@@ -8,7 +9,8 @@ class ImageInServiceInline(admin.TabularInline):
 
 
 @admin.register(Service)
-class ServiceAdmin(admin.ModelAdmin):
+class ServiceAdmin(SortableAdminMixin, admin.ModelAdmin):
+    list_display = ('title', 'my_order')
     inlines = [ImageInServiceInline]
     fieldsets = (
         (None, {
@@ -45,7 +47,8 @@ class CategoryAdmin(admin.ModelAdmin):
 
 
 @admin.register(Artclass)
-class ArtclassAdmin(admin.ModelAdmin):
+class ArtclassAdmin(SortableAdminMixin, admin.ModelAdmin):
+    list_display = ('title', 'my_order')
     inlines = [ImageInArtclassInline]
     fieldsets = (
         (None, {
@@ -62,8 +65,8 @@ class ArtclassAdmin(admin.ModelAdmin):
 
 
 @admin.register(Specialist)
-class SpecialistAdmin(admin.ModelAdmin):
-    list_display = ('name',)
+class SpecialistAdmin(SortableAdminMixin, admin.ModelAdmin):
+    list_display = ('name', 'my_order')
 
 
 class WeekDayServiceElemInline(admin.TabularInline):

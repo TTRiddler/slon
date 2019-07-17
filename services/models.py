@@ -7,6 +7,7 @@ from tinymce.models import HTMLField
 class Specialist(models.Model):
     name = models.CharField(max_length=250, verbose_name='Имя')
     about = models.TextField(verbose_name='О специалисте')
+    my_order = models.PositiveIntegerField(default=0, blank=False, null=False, verbose_name='Сортировка')
 
     def get_picture_url(self, filename):
         ext = filename.split('.')[-1]
@@ -18,6 +19,7 @@ class Specialist(models.Model):
     class Meta:
         verbose_name = 'Специалист'
         verbose_name_plural = 'Специалисты'
+        ordering = ['my_order']
 
     def __str__(self):
         return '%s' % self.name
@@ -55,10 +57,12 @@ class Service(SEOOptimizable):
     some_lesson_price = models.PositiveIntegerField(verbose_name='Цена нескольких занятий')
     text = HTMLField(verbose_name='Текст')
     is_active = models.BooleanField(default=True, verbose_name='Показывать на сайте')
+    my_order = models.PositiveIntegerField(default=0, blank=False, null=False, verbose_name='Сортировка')
 
     class Meta:
         verbose_name = 'Услуга'
         verbose_name_plural = 'Услуги'
+        ordering = ['my_order']
 
     def __str__(self):
         return '%s' % self.title
@@ -93,10 +97,12 @@ class Artclass(SEOOptimizable):
     some_lesson_price = models.PositiveIntegerField(verbose_name='Цена нескольких занятий')
     text = HTMLField(verbose_name='Текст')
     is_active = models.BooleanField(default=True, verbose_name='Показывать на сайте')
+    my_order = models.PositiveIntegerField(default=0, blank=False, null=False, verbose_name='Сортировка')
     
     class Meta:
         verbose_name = 'Кружок'
         verbose_name_plural = 'Кружки'
+        ordering = ['my_order']
 
     def __str__(self):
         return '%s' % self.title
